@@ -1,0 +1,25 @@
+{
+	"title": "Board Schema",
+
+	"definitions": {
+		"pieceLocation": {
+			"type": "object",
+			"properties": {
+				"x": { "type": "integer"},
+				"y": { "type": "integer"},
+				"orientation": { "enum": ["h", "v"]}
+			},
+			"required": ["x","y","orientation"]
+		}
+	},
+
+	"type": "object",
+	"properties": {
+		"pieces": {
+			"type": "array",
+			"items": {"$ref": "#/definitions/pieceLocation"}
+		},
+		"salt": { "type": "string"}
+	},
+	"required": ["pieces"]
+}

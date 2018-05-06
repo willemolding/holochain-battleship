@@ -1,0 +1,10 @@
+{
+	"title": "Guess Schema",
+	"type": "object",
+	"properties": {
+		"x": { "type": "integer"},
+		"y": { "type": "integer"},
+		"gameHash": {"type": "string"},
+		"playerHash": {"type": "string"}
+	}
+}

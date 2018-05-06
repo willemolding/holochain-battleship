@@ -1,0 +1,12 @@
+{
+	"title": "Game Schema",
+	"type": "object",
+	"properties": {
+		"creator": { "type": "string" },
+		"creatorboardHash": { "type": "string"},
+		"invitee": { "type": "string" },
+		"inviteeboardHash": { "type": "string"},
+		"winner": { "type": "string" }
+	},
+	"required": ["creator", "invitee", "creatorBoardCommit"]
+}

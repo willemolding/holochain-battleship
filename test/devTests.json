@@ -1,0 +1,39 @@
+{
+    "Tests": [
+        {
+            "Convey": "Can call createNewGameRequest",
+            "Zome": "battleship",
+            "FnName": "createNewGameRequest",
+            "Input": {
+                "content": "this is the entry body",
+                "stamp": 12345
+            },
+            "Output": true
+        },
+        {
+            "Convey": "Can call acceptGameRequest",
+            "Zome": "battleship",
+            "FnName": "acceptGameRequest",
+            "Input": {
+                "content": "this is the entry body",
+                "stamp": 12345
+            },
+            "Output": true
+        },
+        {
+            "Convey": "Can call makeGuess",
+            "Zome": "battleship",
+            "FnName": "makeGuess",
+            "Input": {
+                "content": "this is the entry body",
+                "stamp": 12345
+            },
+            "Output": true
+        }
+    ],
+    "Identity": "",
+    "Fixtures": {
+        "Agents": null
+    },
+    "Benchmark": false
+}

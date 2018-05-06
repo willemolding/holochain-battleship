@@ -1,0 +1,90 @@
+{
+    "Version": 1,
+    "UUID": "c58d29e8-5116-11e8-9026-685b35836414",
+    "Name": "holochain-battleship",
+    "Properties": {
+        "description": "provides an application template",
+        "language": "en"
+    },
+    "PropertiesSchemaFile": "properties_schema.json",
+    "BasedOn": {
+        "H": null
+    },
+    "RequiresVersion": 23,
+    "DHTConfig": {
+        "HashType": "sha2-256",
+        "NeighborhoodSize": 0
+    },
+    "Progenitor": {
+        "Identity": "",
+        "PubKey": null
+    },
+    "Zomes": [
+        {
+            "Name": "battleship",
+            "Description": "Provides the rules of the game battleship as played on Holochain",
+            "CodeFile": "battleship.js",
+            "RibosomeType": "js",
+            "BridgeFuncs": null,
+            "Config": null,
+            "Entries": [
+                {
+                    "Name": "game",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "gameSchema.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "privateBoard",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "boardSchema.json",
+                    "Sharing": "private"
+                },
+                {
+                    "Name": "publicBoard",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "boardSchema.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "guess",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "guessSchema.json",
+                    "Sharing": "public"
+                },
+
+                {
+                    "Name": "gameLinks",
+                    "DataFormat": "links",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "guessLinks",
+                    "DataFormat": "links",
+                    "Sharing": "public"
+                }
+            ],
+            "Functions": [
+                {
+                    "Name": "createNewGameRequest",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "acceptGameRequest",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "makeGuess",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                }
+            ]
+        }
+    ]
+}
