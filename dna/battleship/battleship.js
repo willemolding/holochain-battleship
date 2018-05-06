@@ -8,28 +8,54 @@ function createNewGameRequest(data) {
   var board = data.board;
   var invitee = data.invitee;
 
-  // commit the board to the local chain. 
-  // This may fail if the board is not valid
-  board.salt = generateSalt();
-  var boardHash = commit("privateBoard", board);
-
+  var boardhash = commitPrivateBoard(board);
 
   // commit the game with the local hash of the board
-  commit("game", {
-    "creator": me,
-    "creatorBoardHash": boardHash,
-    "invitee": ,
+  var gameHash = commit("game", {
+    creator: me,
+    creatorBoardHash: boardHash,
+    invitee: invitee
+  });
 
+  // link to both players
+  commit("gameLinks", { 
+    Links: [ { Base: me, Link: gameHash, Tag: "inviter" },
+             { Base: invitee, Link: gameHash, Tag: "invitee" } ] 
   });
 
   return true;
 }
 
+
 function acceptGameRequest(data) {
+  var gameHash = data.gameHash;
+  var board = data.board;
+
+  var game = get(gameHash);
+  var boardhash = commitPrivateBoard(board);
+  game.inviteeboardHash = boardHash;
+
+  // update the game to include the new player
+  update("game", game, gameHash);
   return true;
 }
 
+
 function makeGuess(data) {
+  var gameHash = data.gameHash;
+  var guess = data.guess;
+
+  var game = get(gameHash);
+
+  // commit the guess to the global dht. This will trigger the validation
+  var guessHash = commit("guess", data);
+  commit("guessLinks", { 
+    Links: [ { Base: gameHash, Link: guess, Tag: me } ] 
+  });
+
+  // message the other user to get the response to the guess
+  send(game.);
+
   return true;
 }
 
@@ -38,6 +64,14 @@ function makeGuess(data) {
 function generateSalt() {
   var salt = "" + Math.random() + "" + Math.random();
   return salt;
+}
+
+function commitPrivateBoard(board) {
+  // commit the board to the local chain. 
+  // This may fail if the board is not valid
+  board.salt = generateSalt();
+  var boardHash = commit("privateBoard", board);
+  return boardHash;
 }
 
 
