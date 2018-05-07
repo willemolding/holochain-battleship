@@ -22,7 +22,7 @@ function newInvitation(data) {
 
   // link to both players
   commit("inviteLinks", { 
-    Links: [ { Base: me, Link: inviteHash, Tag: "inviter" },
+    Links: [ { Base: me, Link: inviteHash, Tag: "creator" },
              { Base: invitee, Link: inviteHash, Tag: "invitee" } ] 
   });
 
@@ -34,15 +34,22 @@ function acceptInvitation(data) {
   var inviteHash = data.inviteHash;
   var board = data.board;
 
-  debug(inviteHash);
-  var invite = get(inviteHash);
-  debug(invite);
+  var game = get(inviteHash);
 
   var boardHash = commitPrivateBoard(board);
-  invite.inviteeBoardHash = boardHash;
+  game.inviteeBoardHash = boardHash;
 
   // update the game to include the new player
-  var gameHash = commit("game", invite);
+  var gameHash = commit("game", game);
+
+  debug(game);
+
+    // link to both players
+  commit("gameLinks", { 
+    Links: [ { Base: game.invitee, Link: gameHash, Tag: "invitee" },
+             { Base: game.creator, Link: gameHash, Tag: "creator" } ] 
+  });
+
   return gameHash;
 }
 
@@ -64,6 +71,18 @@ function makeGuess(data) {
   // send(game);
 
   return guessHash;
+}
+
+function getSentInvitations() {
+  var invitations = getLinks(me, "inviter", { Load: true })
+}
+
+function getReceivedInvitations() {
+  var invitations = getLinks(me, "invitee", { Load: true })
+}
+
+function getCurrentGames() {
+  var games = getLinks(me, "")
 }
 
 /////////////////////// Local Functions

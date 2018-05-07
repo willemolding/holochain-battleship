@@ -16,6 +16,7 @@
             },
             "Output": "%h1%"
         },
+
         {
             "Convey": "Can call acceptInvitation",
             "Zome": "battleship",
@@ -28,16 +29,17 @@
                         {"x": 6, "y": 3, "orientation": "h"}
                     ]
                 },
-                "inviteHash": "%h1%"
+                "inviteHash": "%r1%"
             },
-            "Output": "%h0%"
+            "Output": "%h1%"
         },
+
         {
             "Convey": "Can call makeGuess",
             "Zome": "battleship",
             "FnName": "makeGuess",
             "Input": {
-                "gameHash": "%h0%",
+                "gameHash": "%r1%",
                 "guess": {"x": 0, "y": 0}
             },
             "Output": "%h1%"
