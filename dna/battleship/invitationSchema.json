@@ -1,0 +1,10 @@
+{
+	"title": "Game Invitation Schema",
+	"type": "object",
+	"properties": {
+		"creator": { "type": "string" },
+		"creatorboardHash": { "type": "string"},
+		"invitee": { "type": "string" }
+	},
+	"required": ["creator", "invitee", "creatorBoardCommit"]
+}

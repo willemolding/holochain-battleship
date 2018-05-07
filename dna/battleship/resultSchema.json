@@ -1,0 +1,9 @@
+{
+	"title": "Game Result Schema",
+	"type": "object",
+	"properties": {
+		"gameHash": { "type": "string" },
+		"winner": { "type": "string"}
+	},
+	"required": ["gameHash", "winner"]
+}

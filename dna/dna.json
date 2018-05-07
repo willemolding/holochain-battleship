@@ -56,7 +56,20 @@
                     "SchemaFile": "guessSchema.json",
                     "Sharing": "public"
                 },
-
+                {
+                    "Name": "invitation",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "gameInvitationSchema.json",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "result",
+                    "DataFormat": "json",
+                    "Schema": "",
+                    "SchemaFile": "resultSchema.json",
+                    "Sharing": "public"
+                },
                 {
                     "Name": "gameLinks",
                     "DataFormat": "links",

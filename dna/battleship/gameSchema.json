@@ -5,8 +5,7 @@
 		"creator": { "type": "string" },
 		"creatorboardHash": { "type": "string"},
 		"invitee": { "type": "string" },
-		"inviteeboardHash": { "type": "string"},
-		"winner": { "type": "string" }
+		"inviteeboardHash": { "type": "string"}
 	},
-	"required": ["creator", "invitee", "creatorBoardCommit"]
+	"required": ["creator", "creatorBoardCommit", "invitee", "inviteeboardHash"]
 }
