@@ -43,6 +43,30 @@
                 "guess": {"x": 0, "y": 0}
             },
             "Output": "%h1%"
+        },
+
+        {
+            "Convey": "Can call getCurrentGames",
+            "Zome": "battleship",
+            "FnName": "getCurrentGames",
+            "Input": {},
+            "Output": [{"Entry":{"creator":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh","creatorBoardHash":"QmPHuXFypttx8zDUdLfYTbMWeLHJXaj2m4vtJVxiCcKx49","invitee":"QmW6P4JCRtThVEUdqNWDbczb3RYyZ9h2rfTLA9gjFZ8e9o","inviteeBoardHash":"QmZbvo9EMWRkvX4qNinUFnENL2GVWDh7B7LyTFkQ9fdXNz"},"EntryType":"game","Hash":"QmbxBLmxYQqhas9vS7FhHVWRpLYbirNtPYDo4XSyR7p6Y7","Source":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh"}]
+        },
+
+        {
+            "Convey": "Can call getSentInvitations",
+            "Zome": "battleship",
+            "FnName": "getSentInvitations",
+            "Input": {},
+            "Output": [{"Entry":{"creator":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh","creatorBoardHash":"QmPHuXFypttx8zDUdLfYTbMWeLHJXaj2m4vtJVxiCcKx49","invitee":"QmW6P4JCRtThVEUdqNWDbczb3RYyZ9h2rfTLA9gjFZ8e9o"},"EntryType":"invitation","Hash":"QmVcJm9LUcXEVcLdY9M35TbJvPy3PapixH4HrMggGaYvyG","Source":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh"}]
+        },
+
+        {
+            "Convey": "Can call getReceivedInvitations",
+            "Zome": "battleship",
+            "FnName": "getReceivedInvitations",
+            "Input": {},
+            "Output": []
         }
     ],
     "Identity": "",

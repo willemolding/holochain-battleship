@@ -109,6 +109,21 @@
                     "Name": "makeGuess",
                     "CallingType": "json",
                     "Exposure": "public"
+                },
+                {
+                    "Name": "getSentInvitations",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getReceivedInvitations",
+                    "CallingType": "json",
+                    "Exposure": "public"
+                },
+                {
+                    "Name": "getCurrentGames",
+                    "CallingType": "json",
+                    "Exposure": "public"
                 }
             ]
         }

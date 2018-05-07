@@ -22,8 +22,8 @@ function newInvitation(data) {
 
   // link to both players
   commit("inviteLinks", { 
-    Links: [ { Base: me, Link: inviteHash, Tag: "creator" },
-             { Base: invitee, Link: inviteHash, Tag: "invitee" } ] 
+    Links: [ { Base: me, Link: inviteHash, Tag: "invite-creator" },
+             { Base: invitee, Link: inviteHash, Tag: "invite-invitee" } ] 
   });
 
   return inviteHash;
@@ -46,8 +46,8 @@ function acceptInvitation(data) {
 
     // link to both players
   commit("gameLinks", { 
-    Links: [ { Base: game.invitee, Link: gameHash, Tag: "invitee" },
-             { Base: game.creator, Link: gameHash, Tag: "creator" } ] 
+    Links: [ { Base: game.invitee, Link: gameHash, Tag: "game" },
+             { Base: game.creator, Link: gameHash, Tag: "game" } ] 
   });
 
   return gameHash;
@@ -74,22 +74,23 @@ function makeGuess(data) {
 }
 
 function getSentInvitations() {
-  var invitations = getLinks(me, "inviter", { Load: true })
+  return getLinks(me, "invite-creator", { Load: true });
 }
 
 function getReceivedInvitations() {
-  var invitations = getLinks(me, "invitee", { Load: true })
+  return getLinks(me, "invite-invitee", { Load: true });
 }
 
 function getCurrentGames() {
-  var games = getLinks(me, "")
+  return getLinks(me, "game", { Load: true });
 }
 
 /////////////////////// Local Functions
 
 function generateSalt() {
-  var salt = "" + Math.random() + "" + Math.random();
-  return salt;
+  // this is not a true random generator but ok for a game
+  // return "" + Math.random() + "" + Math.random();
+  return "000" // use this for testing to make it deterministic
 }
 
 function commitPrivateBoard(board) {
