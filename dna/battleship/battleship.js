@@ -4,40 +4,46 @@ var me = App.Key.Hash;
 
 ////////////////////// public zome functions
 
-function createNewGameRequest(data) {
+function newInvitation(data) {
   var board = data.board;
   var invitee = data.invitee;
 
-  var boardhash = commitPrivateBoard(board);
+  var boardHash = commitPrivateBoard(board);
 
   // commit the game with the local hash of the board
-  var gameHash = commit("game", {
+  var inviteHash = commit("invitation", {
     creator: me,
     creatorBoardHash: boardHash,
     invitee: invitee
   });
 
+  debug(inviteHash);
+  debug(get(inviteHash));
+
   // link to both players
-  commit("gameLinks", { 
-    Links: [ { Base: me, Link: gameHash, Tag: "inviter" },
-             { Base: invitee, Link: gameHash, Tag: "invitee" } ] 
+  commit("inviteLinks", { 
+    Links: [ { Base: me, Link: inviteHash, Tag: "inviter" },
+             { Base: invitee, Link: inviteHash, Tag: "invitee" } ] 
   });
 
-  return true;
+  return inviteHash;
 }
 
 
-function acceptGameRequest(data) {
-  var gameHash = data.gameHash;
+function acceptInvitation(data) {
+  var inviteHash = data.inviteHash;
   var board = data.board;
 
-  var game = get(gameHash);
-  var boardhash = commitPrivateBoard(board);
-  game.inviteeboardHash = boardHash;
+  debug(inviteHash);
+  var invite = get(inviteHash);
+  debug(invite);
+
+  var boardHash = commitPrivateBoard(board);
+  invite.inviteeBoardHash = boardHash;
 
   // update the game to include the new player
-  update("game", game, gameHash);
-  return true;
+  var gameHash = commit("game", invite);
+  return gameHash;
 }
 
 
@@ -49,14 +55,15 @@ function makeGuess(data) {
 
   // commit the guess to the global dht. This will trigger the validation
   var guessHash = commit("guess", data);
+
   commit("guessLinks", { 
-    Links: [ { Base: gameHash, Link: guess, Tag: me } ] 
+    Links: [ { Base: gameHash, Link: guessHash, Tag: me } ] 
   });
 
   // message the other user to get the response to the guess
-  send(game.);
+  // send(game);
 
-  return true;
+  return guessHash;
 }
 
 /////////////////////// Local Functions
@@ -93,34 +100,37 @@ function genesis() {
 }
 
 function validateCommit (entryName, entry, header, pkg, sources) {
-  switch (entryName) {
-    case "game":
-      return true;
-    case "privateBoard":
-      return true;
-    case "publicBoard":
-      return true;
-    case "guess":
-      return true;
-    case "gameLinks": // these are called when links are added to the local chain
-    case "guessLinks":
-      return validateLink(entryName, entry, header, pkg, sources);
-    default:
-      return false;
-  }
+  return true;
+  // switch (entryName) {
+  //   case "game":
+  //     return true;
+  //   case "privateBoard":
+  //     return true;
+  //   case "publicBoard":
+  //     return true;
+  //   case "guess":
+  //     return true;
+  //   case "invitation":
+  //     return true;
+  //   case "result":
+  //     return true;
+  //   case "gameLinks": // these are called when links are added to the local chain
+  //   case "guessLinks":
+  //   case "inviteLinks":
+  //   case "resultLinks":
+  //     return validateLink(entryName, entry, header, pkg, sources);
+  //   default:
+  //     return false;
+  // }
 }
 
 function validatePut (entryName, entry, header, pkg, sources) {
-  validateCommit(entryName, entry, header, pkg, sources);
+  return true;
+  // validateCommit(entryName, entry, header, pkg, sources);
 }
 
 function validateMod (entryName, entry, header, replaces, pkg, sources) {
-  switch (entryName) {
-    case "game":
-      return true;
-    default:
-      return false;
-  }
+  return false; // no modifications allowed
 }
 
 function validateDel (entryName, hash, pkg, sources) {
@@ -128,14 +138,7 @@ function validateDel (entryName, hash, pkg, sources) {
 }
 
 function validateLink(linkEntryType,baseHash,links,pkg,sources) {
-  switch (entryName) {
-    case "gameLinks":
-      return true;
-    case "guessLinks":
-      return true;
-    default:
-      return false;
-  }
+  return true;
 }
 
 function validatePutPkg (entryName) {

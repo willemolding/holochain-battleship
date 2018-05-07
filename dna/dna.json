@@ -26,7 +26,9 @@
             "CodeFile": "battleship.js",
             "RibosomeType": "js",
             "BridgeFuncs": null,
-            "Config": null,
+            "Config": {
+                "ErrorHandling": "throwErrors"
+            },
             "Entries": [
                 {
                     "Name": "game",
@@ -60,7 +62,7 @@
                     "Name": "invitation",
                     "DataFormat": "json",
                     "Schema": "",
-                    "SchemaFile": "gameInvitationSchema.json",
+                    "SchemaFile": "invitationSchema.json",
                     "Sharing": "public"
                 },
                 {
@@ -68,6 +70,17 @@
                     "DataFormat": "json",
                     "Schema": "",
                     "SchemaFile": "resultSchema.json",
+                    "Sharing": "public"
+                },
+
+                {
+                    "Name": "inviteLinks",
+                    "DataFormat": "links",
+                    "Sharing": "public"
+                },
+                {
+                    "Name": "resultLinks",
+                    "DataFormat": "links",
                     "Sharing": "public"
                 },
                 {
@@ -83,12 +96,12 @@
             ],
             "Functions": [
                 {
-                    "Name": "createNewGameRequest",
+                    "Name": "newInvitation",
                     "CallingType": "json",
                     "Exposure": "public"
                 },
                 {
-                    "Name": "acceptGameRequest",
+                    "Name": "acceptInvitation",
                     "CallingType": "json",
                     "Exposure": "public"
                 },

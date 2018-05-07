@@ -3,8 +3,8 @@
 	"type": "object",
 	"properties": {
 		"creator": { "type": "string" },
-		"creatorboardHash": { "type": "string"},
+		"creatorBoardHash": { "type": "string"},
 		"invitee": { "type": "string" }
 	},
-	"required": ["creator", "invitee", "creatorBoardCommit"]
+	"required": ["creator", "invitee", "creatorBoardHash"]
 }

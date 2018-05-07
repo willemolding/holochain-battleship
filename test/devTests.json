@@ -1,34 +1,46 @@
 {
     "Tests": [
         {
-            "Convey": "Can call createNewGameRequest",
+            "Convey": "Can call newInvitation",
             "Zome": "battleship",
-            "FnName": "createNewGameRequest",
+            "FnName": "newInvitation",
             "Input": {
-                "content": "this is the entry body",
-                "stamp": 12345
+                "board": {
+                    "pieces": [
+                        {"x": 0, "y": 0, "orientation": "h"},
+                        {"x": 3, "y": 2, "orientation": "v"},
+                        {"x": 6, "y": 3, "orientation": "h"}
+                    ]
+                },
+                "invitee": "%agent%"
             },
-            "Output": true
+            "Output": "%h1%"
         },
         {
-            "Convey": "Can call acceptGameRequest",
+            "Convey": "Can call acceptInvitation",
             "Zome": "battleship",
-            "FnName": "acceptGameRequest",
+            "FnName": "acceptInvitation",
             "Input": {
-                "content": "this is the entry body",
-                "stamp": 12345
+                "board": {
+                    "pieces": [
+                        {"x": 0, "y": 0, "orientation": "h"},
+                        {"x": 2, "y": 2, "orientation": "v"},
+                        {"x": 6, "y": 3, "orientation": "h"}
+                    ]
+                },
+                "inviteHash": "%h1%"
             },
-            "Output": true
+            "Output": "%h0%"
         },
         {
             "Convey": "Can call makeGuess",
             "Zome": "battleship",
             "FnName": "makeGuess",
             "Input": {
-                "content": "this is the entry body",
-                "stamp": 12345
+                "gameHash": "%h0%",
+                "guess": {"x": 0, "y": 0}
             },
-            "Output": true
+            "Output": "%h1%"
         }
     ],
     "Identity": "",

@@ -3,9 +3,9 @@
 	"type": "object",
 	"properties": {
 		"creator": { "type": "string" },
-		"creatorboardHash": { "type": "string"},
+		"creatorBoardHash": { "type": "string"},
 		"invitee": { "type": "string" },
-		"inviteeboardHash": { "type": "string"}
+		"inviteeBoardHash": { "type": "string"}
 	},
-	"required": ["creator", "creatorBoardCommit", "invitee", "inviteeboardHash"]
+	"required": ["creator", "creatorBoardHash", "invitee", "inviteeBoardHash"]
 }
