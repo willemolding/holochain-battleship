@@ -2,7 +2,13 @@
 
 var me = App.Key.Hash;
 
-////////////////////// public zome functions
+var BOARD_SIZE = 10;
+var PIECE_SIZES = [5,4,3,3,2];
+
+
+/*=============================================
+=            public zome functions            =
+=============================================*/
 
 function newInvitation(data) {
   var board = data.board;
@@ -68,7 +74,6 @@ function makeGuess(data) {
   });
 
   // message the other user to get the response to the guess
-  // send(game);
 
   return guessHash;
 }
@@ -85,7 +90,12 @@ function getCurrentGames() {
   return getLinks(me, "game", { Load: true });
 }
 
-/////////////////////// Local Functions
+
+/*=====  End of public zome functions  ======*/
+
+/*============================================
+=            local zome functions            =
+============================================*/
 
 function generateSalt() {
   // this is not a true random generator but ok for a game
@@ -102,7 +112,44 @@ function commitPrivateBoard(board) {
 }
 
 
-/////////////////////// Message Callbacks
+
+function hasCorrectNumberOfPieces(board) {
+  return board.pieces.len === PIECE_SIZES.len;
+}
+
+function piecesInBounds(board) {
+  return board.pieces.every(function(piece, i) {
+    if (piece.orientation === "h") {
+      return piece.x >= 0 && piece.x + PIECE_SIZES[i] - 1 < BOARD_SIZE && piece.y >= 0 && piece.y < BOARD_SIZE
+    } else {
+      return piece.x >= 0 && piece.x < BOARD_SIZE && piece.y >= 0 && piece.y + PIECE_SIZES[i] - 1 < BOARD_SIZE
+    }
+  });
+}
+
+function noPiecesOverlapping(board) {
+  return true;
+}
+
+function isBoardValid(board) {
+  return hasCorrectNumberOfPieces(board) 
+    && piecesInBounds(board) 
+    && noPiecesOverlapping(board);
+}
+
+
+function isGuessValid(guess) {
+  return 
+}
+
+/*=====  End of local zome functions  ======*/
+
+
+
+/*=================================
+=            Callbacks            =
+=================================*/
+
 
 function receive(from, message) {
   var type = msg.type;
@@ -111,9 +158,6 @@ function receive(from, message) {
   }
   return "unknown type"
 }
-
-
-/////////////////////// Validation Callbacks
 
 function genesis() {
   return true;
@@ -176,3 +220,5 @@ function validateDelPkg (entryName) {
 function validateLinkPkg (entryName) {
   return null;
 }
+
+/*=====  End of Callbacks  ======*/
