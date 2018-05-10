@@ -56,12 +56,14 @@ function newInvitation(data) {
     invitee: invitee
   };
 
+  debug(invitation);
+
   var inviteHash = commit("invitation", invitation);
 
   // link to both players
   commit("inviteLinks", { 
-    Links: [ { Base: me, Link: inviteHash, Tag: "invite-creator" },
-             { Base: invitee, Link: inviteHash, Tag: "invite-invitee" } ] 
+    Links: [ { Base: me, Link: inviteHash, Tag: "creator" },
+             { Base: invitee, Link: inviteHash, Tag: "invitee" } ]
   });
 
   return inviteHash;
@@ -108,11 +110,11 @@ function makeGuess(data) {
 }
 
 function getSentInvitations() {
-  return getLinks(me, "invite-creator", { Load: true });
+  return getLinks(me, "creator", { Load: true });
 }
 
 function getReceivedInvitations() {
-  return getLinks(me, "invite-invitee", { Load: true });
+  return getLinks(me, "invitee", { Load: true });
 }
 
 function getCurrentGames() {
@@ -241,31 +243,33 @@ function genesis() {
 
 
 function validateCommit (entryName, entry, header, pkg, sources) {
-  switch (entryName) {
-    case "game":
-      return true;
-    case "privateBoard":
-      return true;
-    case "publicBoard":
-      return true;
-    case "guess":
-      return guessIsValid(entry);
-    case "invitation":
-      return true;
-    case "result":
-      return true;
-    case "gameLinks": // these are called when links are added to the local chain
-    case "guessLinks":
-    case "inviteLinks":
-    case "resultLinks":
-      return validateLink(entryName, entry, header, pkg, sources);
-    default:
-      return false;
-  }
+  return true;
+  // switch (entryName) {
+  //   case "game":
+  //     return true;
+  //   case "privateBoard":
+  //     return true;
+  //   case "publicBoard":
+  //     return true;
+  //   case "guess":
+  //     return guessIsValid(entry);
+  //   case "invitation":
+  //     return true;
+  //   case "result":
+  //     return true;
+  //   case "gameLinks": // these are called when links are added to the local chain
+  //   case "guessLinks":
+  //   case "inviteLinks":
+  //   case "resultLinks":
+  //     return validateLink(entryName, entry, header, pkg, sources);
+  //   default:
+  //     return false;
+  // }
 }
 
 function validatePut (entryName, entry, header, pkg, sources) {
-  return validateCommit(entryName, entry, header, pkg, sources);
+  return true;
+  // return validateCommit(entryName, entry, header, pkg, sources);
 }
 
 function validateMod (entryName, entry, header, replaces, pkg, sources) {
@@ -278,13 +282,6 @@ function validateDel (entryName, hash, pkg, sources) {
 
 function validateLink(linkEntryType,baseHash,links,pkg,sources) {
   return true;
-  switch(linkEntryType) {
-    case "gameLinks": // these are called when links are added to the local chain
-    case "guessLinks":
-    case "inviteLinks":
-    case "resultLinks":
-      return true;
-  }
 }
 
 function validatePutPkg (entryName) {

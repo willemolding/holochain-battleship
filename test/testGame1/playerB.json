@@ -1,21 +1,12 @@
 {
     "Tests": [
         {
-            "Time": 300,
-            "Convey": "Accept an invitation",
+            "Time": 200,
+            "Convey": "Get the most recent invitation",
             "Zome": "battleship",
-            "FnName": "acceptInvitation",
-            "Input": {
-                "board": {
-                    "pieces": [
-                        {"x": 0, "y": 0, "orientation": "h"},
-                        {"x": 2, "y": 2, "orientation": "v"},
-                        {"x": 6, "y": 3, "orientation": "h"}
-                    ]
-                },
-                "inviteHash": "%r1%"
-            },
-            "Output": "%h1%"
-        },  
+            "FnName": "getReceivedInvitations",
+            "Input": "",
+            "Output": ""
+        }
     ]
 }

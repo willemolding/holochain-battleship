@@ -1,7 +1,7 @@
 {
     "Tests": [
         {
-            "Time": 200,
+            "Time": 100,
             "Convey": "Create a new game invitation",
             "Zome": "battleship",
             "FnName": "newInvitation",
@@ -17,5 +17,14 @@
             },
             "Output": "%h1%"
         },
+        {
+            "Time": 200,
+            "Convey": "The invitation was linked to the node hash",
+            "Zome": "battleship",
+            "FnName": "getSentInvitations",
+            "Raw": true,
+            "Input": "getSentInvitations().length",
+            "Regexp": "^0*[1-9][0-9]*$"
+        }
     ]
 }
