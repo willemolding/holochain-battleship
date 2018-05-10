@@ -5,23 +5,30 @@ var me = App.Key.Hash;
 var BOARD_SIZE = 10;
 var PIECE_SIZES = [5,4,3,3,2];
 
+
 // keep for demo only
+agentShortname = App.Agent.String.substr(0, App.Agent.String.indexOf('@')); 
+
 var oldCommit = commit;
 commit = function(entryType, entryData) {
-  debug('<mermaid>' + App.Agent.String + '-->>DHT: '+ entryType +' </mermaid>');
+  if(entryType.indexOf("private") !== -1) {
+    debug(agentShortname + '-->>' + agentShortname +': '+ entryType);
+  } else {
+    debug(agentShortname + '-->>DHT: '+ entryType);
+  }
   return oldCommit(entryType, entryData);
 };
 
 var oldGet = get;
 get = function(hash, options) {
   result = oldGet(hash, options);
-  debug('<mermaid>DHT-->>' + App.Agent.String + ': '+ hash +' </mermaid>');
+  debug('DHT-->>' + agentShortname + ': '+ hash);
   return result;
 };
 
 var oldSend = send;
 send = function(to, message, options) {
-  debug('<mermaid>' + App.Agent.String + '-->>' + to + ': '+ message +' </mermaid>');
+  debug(agentShortname + '-->>' + to + ': '+ message);
   return send(to, message, options);
 }
 
@@ -42,8 +49,6 @@ function newInvitation(data) {
     creatorBoardHash: boardHash,
     invitee: invitee
   };
-
-  debug(invitation);
 
   var inviteHash = commit("invitation", invitation);
 
@@ -66,11 +71,7 @@ function acceptInvitation(data) {
   var boardHash = commitPrivateBoard(board);
   game.inviteeBoardHash = boardHash;
 
-  debug(game);
-
   var gameHash = commit("game", game);
-
-  debug(gameHash);
 
     // link to both players
   commit("gameLinks", { 
@@ -87,8 +88,6 @@ function makeGuess(data) {
   var guess = data.guess;
   guess.playerHash = me;
   guess.gameHash = gameHash;
-
-  debug(guess);
 
   // commit the guess to the global dht. This will trigger the validation
   var guessHash = commit("guess", guess);
@@ -178,7 +177,6 @@ function isPlayersTurn(gameHash, playerHash) {
   if (guesses.length === 0) {
     // this is the first guess of the game
     // the invitee gets the first guess
-    debug("no guesses. Invitee must play first");
     game = get(gameHash);
     return playerHash === game.invitee;
   }
