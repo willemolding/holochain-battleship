@@ -5,6 +5,25 @@ var me = App.Key.Hash;
 var BOARD_SIZE = 10;
 var PIECE_SIZES = [5,4,3,3,2];
 
+// keep for demo only
+var oldCommit = commit;
+commit = function(entryType, entryData) {
+  debug('<mermaid>' + App.Agent.String + '-->>DHT: '+ entryType +' </mermaid>');
+  return oldCommit(entryType, entryData);
+};
+
+var oldGet = get;
+get = function(hash, options) {
+  result = oldGet(hash, options);
+  debug('<mermaid>DHT-->>' + App.Agent.String + ': '+ hash +' </mermaid>');
+  return result;
+};
+
+var oldSend = send;
+send = function(to, message, options) {
+  debug('<mermaid>' + App.Agent.String + '-->>' + to + ': '+ message +' </mermaid>');
+  return send(to, message, options);
+}
 
 /*=============================================
 =            public zome functions            =
