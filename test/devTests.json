@@ -42,7 +42,7 @@
                 "gameHash": "%h1%",
                 "guess": {"x": 0, "y": 0}
             },
-            "Output": "%h1%"
+            "ErrMsg": "Validation Failed"
         },
 
         {

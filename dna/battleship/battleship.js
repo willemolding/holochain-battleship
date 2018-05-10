@@ -17,11 +17,16 @@ function newInvitation(data) {
   var boardHash = commitPrivateBoard(board);
 
   // commit the game with the local hash of the board
-  var inviteHash = commit("invitation", {
+
+  var invitation = {
     creator: me,
     creatorBoardHash: boardHash,
     invitee: invitee
-  });
+  };
+
+  debug(invitation);
+
+  var inviteHash = commit("invitation", invitation);
 
   // link to both players
   commit("inviteLinks", { 
@@ -42,7 +47,8 @@ function acceptInvitation(data) {
   var boardHash = commitPrivateBoard(board);
   game.inviteeBoardHash = boardHash;
 
-  // update the game to include the new player
+  debug(game);
+
   var gameHash = commit("game", game);
 
   debug(gameHash);
@@ -62,6 +68,8 @@ function makeGuess(data) {
   var guess = data.guess;
   guess.playerHash = me;
   guess.gameHash = gameHash;
+
+  debug(guess);
 
   // commit the guess to the global dht. This will trigger the validation
   var guessHash = commit("guess", guess);
@@ -142,6 +150,15 @@ function getGuesses(gameHash) {
 function isPlayersTurn(gameHash, playerHash) {
   // for it to be a players turn the most recent guess must not belong to this player
   var guesses = getGuesses(gameHash);
+
+  if (guesses.length === 0) {
+    // this is the first guess of the game
+    // the invitee gets the first guess
+    debug("no guesses. Invitee must play first");
+    game = get(gameHash);
+    return playerHash === game.invitee;
+  }
+
   var lastGuess = guesses[guesses.length - 1].Entry;
   return lastGuess.playerHash !== playerHash;
 }
