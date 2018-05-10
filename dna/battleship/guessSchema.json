@@ -6,5 +6,6 @@
 		"y": { "type": "integer"},
 		"gameHash": {"type": "string"},
 		"playerHash": {"type": "string"}
-	}
+	},
+	"required": ["x", "y", "gameHash", "playerHash"]
 }

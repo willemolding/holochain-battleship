@@ -67,6 +67,20 @@
             "FnName": "getReceivedInvitations",
             "Input": {},
             "Output": []
+        },
+        {
+            "Convey": "Can call getGuesses",
+            "Raw": true,
+            "Zome": "battleship",
+            "Input": "getGuesses('QmbxBLmxYQqhas9vS7FhHVWRpLYbirNtPYDo4XSyR7p6Y7')",
+            "Regexp": ".*"
+        },
+        {
+            "Convey": "Can call isPlayersTurn",
+            "Raw": true,
+            "Zome": "battleship",
+            "Input": "isPlayersTurn('QmbxBLmxYQqhas9vS7FhHVWRpLYbirNtPYDo4XSyR7p6Y7', 'QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh')",
+            "Output": false
         }
     ],
     "Identity": "",

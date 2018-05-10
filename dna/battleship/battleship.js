@@ -63,18 +63,17 @@ function acceptInvitation(data) {
 function makeGuess(data) {
   var gameHash = data.gameHash;
   var guess = data.guess;
-
-  var game = get(gameHash);
+  guess.playerHash = me;
+  guess.gameHash = gameHash;
 
   // commit the guess to the global dht. This will trigger the validation
-  var guessHash = commit("guess", data);
+  var guessHash = commit("guess", guess);
 
   commit("guessLinks", { 
     Links: [ { Base: gameHash, Link: guessHash, Tag: me } ] 
   });
 
   // message the other user to get the response to the guess
-
   return guessHash;
 }
 
@@ -137,9 +136,25 @@ function isBoardValid(board) {
     && noPiecesOverlapping(board);
 }
 
+function getGuesses(gameHash) {
+  return getLinks(gameHash, "", { Load : true });
+}
+
+function isPlayersTurn(gameHash, playerHash) {
+  // for it to be a players turn the most recent guess must not belong to this player
+  var guesses = getGuesses(gameHash);
+  var lastGuess = guesses[guesses.length - 1].Entry;
+  return lastGuess.playerHash !== playerHash;
+}
+
+function guessWithinBounds(guess) {
+  return guess.x > 0 && guess.x < BOARD_SIZE
+    && guess.y > 0 && guess.y < BOARD_SIZE;
+}
 
 function isGuessValid(guess) {
-  return 
+  return isPlayersTurn(guess.gameHash, guess.playerHash)
+    && guessWithinBounds(guess);
 }
 
 /*=====  End of local zome functions  ======*/
