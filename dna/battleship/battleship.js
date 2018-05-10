@@ -6,7 +6,10 @@ var BOARD_SIZE = 10;
 var PIECE_SIZES = [5,4,3,3,2];
 
 
-// keep for demo only
+/*==========================================
+=            function overrides            =
+==========================================*/
+
 agentShortname = App.Agent.String.substr(0, App.Agent.String.indexOf('@')); 
 
 var oldCommit = commit;
@@ -31,6 +34,9 @@ send = function(to, message, options) {
   debug(agentShortname + '-->>' + to + ': '+ message);
   return send(to, message, options);
 }
+
+/*=====  End of function overrides  ======*/
+
 
 /*=============================================
 =            public zome functions            =

@@ -1,0 +1,21 @@
+{
+    "Tests": [
+        {
+            "Time": 200,
+            "Convey": "Create a new game invitation",
+            "Zome": "battleship",
+            "FnName": "newInvitation",
+            "Input": {
+                "board": {
+                    "pieces": [
+                        {"x": 0, "y": 0, "orientation": "h"},
+                        {"x": 3, "y": 2, "orientation": "v"},
+                        {"x": 6, "y": 3, "orientation": "h"}
+                    ]
+                },
+                "invitee": "%playerB_key%"
+            },
+            "Output": "%h1%"
+        },
+    ]
+}
