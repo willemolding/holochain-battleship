@@ -143,6 +143,11 @@ function boardIsValid(board) {
     && noPiecesOverlapping(board);
 }
 
+function evaluateGuess(board, guess) {
+  // return if a guess is a hit (true) or miss (false) on this board
+  return true; 
+}
+
 function getGuesses(gameHash) {
   return getLinks(gameHash, "", { Load : true });
 }
@@ -173,6 +178,7 @@ function guessIsValid(guess) {
     && guessWithinBounds(guess);
 }
 
+
 /*=====  End of local zome functions  ======*/
 
 
@@ -183,16 +189,33 @@ function guessIsValid(guess) {
 
 
 function receive(from, message) {
-  var type = msg.type;
-  if (type=="ping") {
-    return App.Agent.Hash
+  // receiving a message means a player is requesting response to a guess.
+  // If a guess is in the DHT it has already been validated by other nodes so
+  // no additional verification is required
+  var guessHash = message;
+  guess = get(guessHash);
+  game = get(guess.gameHash);
+
+  // next up find which board in the local chain to verify against
+  var boardHash;
+  if (game.creator === me) {
+    boardHash = game.creatorBoardHash;
+  } else if (game.invitee == me) {
+    boardHash = game.inviteeBoardHash;
+  } else {
+    throw "Cannot resond to guess";
   }
-  return "unknown type"
+
+  board = get(boardHash, {Local: true});
+
+  return evaluateGuess(board, guess);
 }
+
 
 function genesis() {
   return true;
 }
+
 
 function validateCommit (entryName, entry, header, pkg, sources) {
   switch (entryName) {
