@@ -2,7 +2,7 @@
     "Tests": [
         {
             "Time": 1000,
-            "Convey": "Create a new game invitation",
+            "Convey": "Create a new game invitation. This is actually just here to create an entry in the DHT for this node's hash",
             "Zome": "battleship",
             "FnName": "newInvitation",
             "Input": {
@@ -19,21 +19,29 @@
         },
         {
             "Time": 1200,
-            "Convey": "The invitation was linked to the node hash",
-            "Zome": "battleship",
-            "FnName": "getSentInvitations",
-            "Raw": true,
-            "Input": "getSentInvitations('%playerB_key%').length",
-            "Regexp": "^0*[1-9][0-9]*$"
-        },
-        {
-            "Time": 2000,
-            "Convey": "The invitation was linked to other player",
+            "Convey": "That the send invitation is visible",
             "Zome": "battleship",
             "FnName": "getReceivedInvitations",
             "Raw": true,
-            "Input": "getReceivedInvitations('%playerA_key%').length",
+            "Input": "getReceivedInvitations('%playerB_key%').length",
             "Regexp": "^0*[1-9][0-9]*$"
+        },
+        {
+            "Time": 1200,
+            "Convey": "That the invitation can be accepted",
+            "Zome": "battleship",
+            "FnName": "acceptInvitation",
+            "Input": {
+                "board": {
+                    "pieces": [
+                        {"x": 0, "y": 0, "orientation": "h"},
+                        {"x": 2, "y": 2, "orientation": "v"},
+                        {"x": 6, "y": 3, "orientation": "h"}
+                    ]
+                },
+                "inviteHash": "QmecCY554xYn3VRhwEAKGMGQHiBQBkoAz8sWdkFsBqypxJ"
+            },
+            "Output": "QmT6cHPNtD8APfnEiL9ZrapthTTymwN5c3yRGKE381WVwu"
         }
     ]
 }

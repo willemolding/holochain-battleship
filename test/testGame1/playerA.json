@@ -19,7 +19,7 @@
         },
         {
             "Time": 1200,
-            "Convey": "The invitation was linked to the node hash",
+            "Convey": "The invitation was linked to this nodes hash",
             "Zome": "battleship",
             "FnName": "getSentInvitations",
             "Raw": true,
@@ -27,7 +27,7 @@
             "Regexp": "^0*[1-9][0-9]*$"
         },
         {
-            "Time": 2000,
+            "Time": 1400,
             "Convey": "The invitation was linked to other player",
             "Zome": "battleship",
             "FnName": "getReceivedInvitations",
