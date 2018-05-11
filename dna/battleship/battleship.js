@@ -56,14 +56,12 @@ function newInvitation(data) {
     invitee: invitee
   };
 
-  debug(invitation);
-
   var inviteHash = commit("invitation", invitation);
 
   // link to both players
   commit("inviteLinks", { 
     Links: [ { Base: me, Link: inviteHash, Tag: "creator" },
-             { Base: invitee, Link: inviteHash, Tag: "invitee" } ]
+             { Base: me, Link: inviteHash, Tag: "invitee" } ]
   });
 
   return inviteHash;
@@ -109,16 +107,16 @@ function makeGuess(data) {
 
 }
 
-function getSentInvitations() {
-  return getLinks(me, "creator", { Load: true });
+function getSentInvitations(playerHash) {
+  return getLinks(playerHash, "creator", { Load: true });
 }
 
-function getReceivedInvitations() {
-  return getLinks(me, "invitee", { Load: true });
+function getReceivedInvitations(playerHash) {
+  return getLinks(playerHash, "invitee", { Load: true });
 }
 
-function getCurrentGames() {
-  return getLinks(me, "game", { Load: true });
+function getCurrentGames(playerHash) {
+  return getLinks(playerHash, "game", { Load: true });
 }
 
 
@@ -190,7 +188,7 @@ function isPlayersTurn(gameHash, playerHash) {
   }
 
   var lastGuess = guesses[guesses.length - 1].Entry;
-  return lastGuess.playerHash !== playerHash;
+  return lastGuess.playerHash !== playerHash; // this prevents a node playing with themselves
 }
 
 function guessWithinBounds(guess) {

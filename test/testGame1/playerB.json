@@ -1,12 +1,39 @@
 {
     "Tests": [
         {
-            "Time": 200,
-            "Convey": "Get the most recent invitation",
+            "Time": 0,
+            "Convey": "Create a new game invitation",
+            "Zome": "battleship",
+            "FnName": "newInvitation",
+            "Input": {
+                "board": {
+                    "pieces": [
+                        {"x": 0, "y": 0, "orientation": "h"},
+                        {"x": 3, "y": 2, "orientation": "v"},
+                        {"x": 6, "y": 3, "orientation": "h"}
+                    ]
+                },
+                "invitee": "%playerA_key%"
+            },
+            "Output": "%h1%"
+        },
+        {
+            "Time": 1200,
+            "Convey": "The invitation was linked to the node hash",
+            "Zome": "battleship",
+            "FnName": "getSentInvitations",
+            "Raw": true,
+            "Input": "getSentInvitations('%playerB_key%').length",
+            "Regexp": "^0*[1-9][0-9]*$"
+        },
+        {
+            "Time": 2000,
+            "Convey": "The invitation was linked to other player",
             "Zome": "battleship",
             "FnName": "getReceivedInvitations",
-            "Input": "",
-            "Output": ""
+            "Raw": true,
+            "Input": "getReceivedInvitations('%playerA_key%').length",
+            "Regexp": "^0*[1-9][0-9]*$"
         }
     ]
 }
