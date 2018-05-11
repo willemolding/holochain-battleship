@@ -1,7 +1,7 @@
 {
     "Tests": [
         {
-            "Time": 0,
+            "Time": 1000,
             "Convey": "Create a new game invitation",
             "Zome": "battleship",
             "FnName": "newInvitation",
