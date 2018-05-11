@@ -34,6 +34,17 @@
             "Raw": true,
             "Input": "getReceivedInvitations('%playerB_key%').length",
             "Regexp": "^0*[1-9][0-9]*$"
+        },
+        {
+            "Time": 1800,
+            "Convey": "Can make the second guess",
+            "Zome": "battleship",
+            "FnName": "makeGuess",
+            "Input": {
+                "gameHash": "QmT6cHPNtD8APfnEiL9ZrapthTTymwN5c3yRGKE381WVwu",
+                "guess": {"x": 1, "y": 1}
+            },
+            "Regexp": ".*"
         }
     ]
 }

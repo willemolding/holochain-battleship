@@ -27,7 +27,7 @@
             "Regexp": "^0*[1-9][0-9]*$"
         },
         {
-            "Time": 1200,
+            "Time": 1400,
             "Convey": "That the invitation can be accepted",
             "Zome": "battleship",
             "FnName": "acceptInvitation",
@@ -42,6 +42,17 @@
                 "inviteHash": "QmecCY554xYn3VRhwEAKGMGQHiBQBkoAz8sWdkFsBqypxJ"
             },
             "Output": "QmT6cHPNtD8APfnEiL9ZrapthTTymwN5c3yRGKE381WVwu"
+        },
+        {
+            "Time": 1600,
+            "Convey": "Can make the first guess",
+            "Zome": "battleship",
+            "FnName": "makeGuess",
+            "Input": {
+                "gameHash": "QmT6cHPNtD8APfnEiL9ZrapthTTymwN5c3yRGKE381WVwu",
+                "guess": {"x": 0, "y": 0}
+            },
+            "Regexp": ".*"
         }
     ]
 }
