@@ -32,7 +32,7 @@ get = function(hash, options) {
 var oldSend = send;
 send = function(to, message, options) {
   debug(agentShortname + '-->>' + to + ': '+ message);
-  return send(to, message, options);
+  return oldSend(to, message, options);
 }
 
 /*=====  End of function overrides  ======*/
@@ -88,6 +88,16 @@ function acceptInvitation(data) {
   return gameHash;
 }
 
+function getOtherPlayer(game) {
+  if(game.creator === me) {
+    return game.invitee;
+  } else if (game.invitee === me) {
+    return game.creator;
+  } else {
+    throw "Node is not a player in this game";
+  }
+}
+
 
 function makeGuess(data) {
   var gameHash = data.gameHash;
@@ -102,7 +112,11 @@ function makeGuess(data) {
     Links: [ { Base: gameHash, Link: guessHash, Tag: me } ] 
   });
 
-  // message the other user to get the response to the guess
+  // message the guess hash to the other player
+  // they will post a response if it is valid
+  var game = get(gameHash);
+  send(getOtherPlayer(game), {guessHash: guessHash});
+
   return guessHash;
 
 }
@@ -215,9 +229,9 @@ function receive(from, message) {
   // receiving a message means a player is requesting response to a guess.
   // If a guess is in the DHT it has already been validated by other nodes so
   // no additional verification is required
-  var guessHash = message;
-  guess = get(guessHash);
-  game = get(guess.gameHash);
+  var guessHash = message.guessHash;
+  var guess = get(guessHash);
+  var game = get(guess.gameHash);
 
   // next up find which board in the local chain to verify against
   var boardHash;
@@ -229,7 +243,7 @@ function receive(from, message) {
     throw "Cannot resond to guess";
   }
 
-  board = get(boardHash, {Local: true});
+  var board = get(boardHash, {Local: true});
 
   return evaluateGuess(board, guess);
 }
