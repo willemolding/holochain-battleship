@@ -29,7 +29,7 @@ hcdev --mdns=true scenario testGame1
 ```
 ## Authors
 
-* **Willem Olding**  [PurpleBooth](https://github.com/willemolding)
+[Willem Olding](https://github.com/willemolding)
 
 ## License
 
