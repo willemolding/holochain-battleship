@@ -8,10 +8,14 @@ While much of the functionality is working this is still under active developmen
 
 This is an educational example of peer-to-peer interactions usign Holochain. Battleship makes a great example as it requires some interesting mechanics including:
 
-- Keeping your own board layout secret, but immutable in the local chain
+- Making use of the local chain to commit a board layout while keeping it secret
 - Sending and responding to guesses using messaging 
 - Validation of game rules to prevent cheating
-- Keeping a validated record of all game results in the shared DHT
+- Keeping a validated record of all game actions in the shared DHT
+
+## Design
+
+
 
 ## Getting Started
 

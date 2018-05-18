@@ -6,37 +6,6 @@ var BOARD_SIZE = 10;
 var PIECE_SIZES = [5,4,3,3,2];
 
 
-/*==========================================
-=            function overrides            =
-==========================================*/
-
-agentShortname = App.Agent.String.substr(0, App.Agent.String.indexOf('@')); 
-
-var oldCommit = commit;
-commit = function(entryType, entryData) {
-  if(entryType.indexOf("private") !== -1) {
-    debug(agentShortname + '-->>' + agentShortname +': '+ entryType);
-  } else {
-    debug(agentShortname + '-->>DHT: '+ entryType);
-  }
-  return oldCommit(entryType, entryData);
-};
-
-var oldGet = get;
-get = function(hash, options) {
-  result = oldGet(hash, options);
-  debug('DHT-->>' + agentShortname + ': '+ hash);
-  return result;
-};
-
-var oldSend = send;
-send = function(to, message, options) {
-  debug(agentShortname + '-->>' + to + ': '+ message);
-  return oldSend(to, message, options);
-}
-
-/*=====  End of function overrides  ======*/
-
 
 /*=============================================
 =            public zome functions            =
@@ -161,6 +130,7 @@ function hasCorrectNumberOfPieces(board) {
 
 
 function piecesInBounds(board) {
+  // 'every' returns the logical AND of the function evaluated on each array element
   return board.pieces.every(function(piece, i) {
     if (piece.orientation === "h") {
       return piece.x >= 0 && piece.x + PIECE_SIZES[i] - 1 < BOARD_SIZE && piece.y >= 0 && piece.y < BOARD_SIZE
@@ -183,7 +153,10 @@ function boardIsValid(board) {
 
 function evaluateGuess(board, guess) {
   // return if a guess is a hit (true) or miss (false) on this board
-  return true; 
+  // 'some' returns the logical OR of the function evaluated on each array element
+  return board.pieces.some(function(piece, i) {
+    
+  });
 }
 
 function getGuesses(gameHash) {
@@ -256,32 +229,10 @@ function genesis() {
 
 function validateCommit (entryName, entry, header, pkg, sources) {
   return true;
-  // switch (entryName) {
-  //   case "game":
-  //     return true;
-  //   case "privateBoard":
-  //     return true;
-  //   case "publicBoard":
-  //     return true;
-  //   case "guess":
-  //     return guessIsValid(entry);
-  //   case "invitation":
-  //     return true;
-  //   case "result":
-  //     return true;
-  //   case "gameLinks": // these are called when links are added to the local chain
-  //   case "guessLinks":
-  //   case "inviteLinks":
-  //   case "resultLinks":
-  //     return validateLink(entryName, entry, header, pkg, sources);
-  //   default:
-  //     return false;
-  // }
 }
 
 function validatePut (entryName, entry, header, pkg, sources) {
   return true;
-  // return validateCommit(entryName, entry, header, pkg, sources);
 }
 
 function validateMod (entryName, entry, header, replaces, pkg, sources) {
@@ -313,3 +264,36 @@ function validateLinkPkg (entryName) {
 }
 
 /*=====  End of Callbacks  ======*/
+
+/*==========================================
+=            function overrides            =
+==========================================*/
+// used for creating sequence diagrams
+// delete these for production
+
+agentShortname = App.Agent.String.substr(0, App.Agent.String.indexOf('@')); 
+
+var oldCommit = commit;
+commit = function(entryType, entryData) {
+  if(entryType.indexOf("private") !== -1) {
+    debug('<mermaid>' + agentShortname + '-->>' + agentShortname +': '+ entryType + '</mermaid>');
+  } else {
+    debug('<mermaid>' + agentShortname + '-->>DHT: '+ entryType + '</mermaid>');
+  }
+  return oldCommit(entryType, entryData);
+};
+
+var oldGet = get;
+get = function(hash, options) {
+  result = oldGet(hash, options);
+  debug('<mermaid>' + 'DHT-->>' + agentShortname + ': '+ hash + '</mermaid>');
+  return result;
+};
+
+var oldSend = send;
+send = function(to, message, options) {
+  debug('<mermaid>' + agentShortname + '-->>' + to + ': '+ message + '</mermaid>');
+  return oldSend(to, message, options);
+}
+
+/*=====  End of function overrides  ======*/
