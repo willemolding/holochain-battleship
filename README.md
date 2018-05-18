@@ -15,6 +15,17 @@ This is an educational example of peer-to-peer interactions usign Holochain. Bat
 
 ## Design
 
+If an agent (PlayerA) wishes to play a game with another agent (PlayerB) they first need create a board which defines where they want their ships located in the 10x10 grid which committed to their local chain. The board entry also has some salt stored with it so the layout cannot be inferred from the hash.
+
+They then post an **invitation entry** to the DHT. The invitation contains the address of the agent with wish to play with as well as the hash of the board entry. This public sharing of the board hash prevents the agent from changing it later. This invitation is linked to the other agents permanent address.
+
+PlayerB can check their pending invitations by querying the links on their address. To take action an invitation PlayerB must also commit a board to their local chain and then posts a **game entry**. The game entry contains the addresses of both players along with their board hashes. PlayerB gets to make the first guess.
+
+A **guess entry** represents the equivalent of a player taking their turn to guess out loud a particular location (e.g. D5). Guess entries are linked to their game. After posting their guess public the player then uses the messaging protocol to inform the other agent. Upon checking that the guess is committed to the DHT the other player will respond if that location is a hit or miss. Their response is also stored in the public DHT.
+
+Players take turns guessing and validation ensures that the correct ordering is followed. There will reach a point where one player will guess the final remaining ship location of the other player. This will trigger the end of the game. On this trigger both agents will publish the previously private boards to the public DHT. The winning player will then publish a **results entry**. Pushing this entry to the DHT triggers a validation process which ensures every guess and response was in accordance with the respective boards. Passing validation the results entry is published and linked to both players address.
+
+The revealing of the board at the end of the game allows any party to audit a game and ensure that guesses and responses made during the game were correct.
 
 
 ## Getting Started
