@@ -294,12 +294,13 @@ commit = function(entryType, entryData) {
   return oldCommit(entryType, entryData);
 };
 
-var oldGet = get;
-get = function(hash, options) {
-  result = oldGet(hash, options);
-  debug('<mermaid>' + 'DHT-->>' + agentShortname + ': '+ 'requested data' + '</mermaid>');
-  return result;
-};
+// don't override get for now to make the diagram easier to understand
+// var oldGet = get;
+// get = function(hash, options) {
+//   result = oldGet(hash, options);
+//   debug('<mermaid>' + 'DHT-->>' + agentShortname + ': '+ 'requested data' + '</mermaid>');
+//   return result;
+// };
 
 var oldSend = send;
 send = function(to, message, options) {
