@@ -27,6 +27,15 @@ Players take turns guessing and validation ensures that the correct ordering is 
 
 The revealing of the board at the end of the game allows any party to audit a game and ensure that guesses and responses made during the game were correct.
 
+Sequence diagram of test scenario 1. In order the players:
+- Both register their names
+- Player A commits a private board and sends an invite
+- Player B commits a private board and accepts the invite
+- Player B makes a guess to which player A responds
+- Player A makes a guess to which player B responds
+
+![Alt text](./test/testGame1/sequenceDiagram.svg)
+<img src="./test/testGame1/sequenceDiagram.svg">
 
 ## Getting Started
 
