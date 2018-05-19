@@ -11,11 +11,9 @@ var PIECE_SIZES = [5,4,3,3,2];
 =            public zome functions            =
 =============================================*/
 
-function registerName() {
+function registerName(name) {
   // commit agent name and link to the key hash.
-  // This ensures the agents key hash is available for others to link to
-  // and also allows for retrieving the ID
-  var agentStringHash = commit("agentString", App.Agent.String);
+  var agentStringHash = commit("agentString", name);
   commit("agentStringLink", { 
     Links: [ { Base: me, Link: agentStringHash, Tag: "agentString" } ]
   });
@@ -233,7 +231,7 @@ function receive(from, message) {
 
 
 function genesis() {
-  registerName();
+  registerName(App.Agent.String);
   return true
 }
 
