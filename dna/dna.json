@@ -30,6 +30,11 @@
                 "ErrorHandling": "throwErrors"
             },
             "Entries": [
+            	{
+            		"Name": "agentString",
+            		"DataFormat": "string",
+            		"Sharing": "public"
+            	},
                 {
                     "Name": "game",
                     "DataFormat": "json",
@@ -74,6 +79,11 @@
                 },
 
                 {
+                    "Name": "agentStringLink",
+                    "DataFormat": "links",
+                    "Sharing": "public"
+                },
+                {
                     "Name": "inviteLinks",
                     "DataFormat": "links",
                     "Sharing": "public"
@@ -95,6 +105,11 @@
                 }
             ],
             "Functions": [
+            	{
+            		"Name": "registerName",
+            		"CallingType": "json",
+                    "Exposure": "public"
+            	},
                 {
                     "Name": "newInvitation",
                     "CallingType": "json",

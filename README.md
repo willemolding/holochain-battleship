@@ -42,6 +42,11 @@ or
 ```
 hcdev --mdns=true scenario testGame1
 ```
+
+To produce the mermaid sequence diagram code use
+```
+hcdev --mdns=true scenario testGame1 | sed -n 's:.*<mermaid>\(.*\)</mermaid>.*:\1:p'
+```
 ## Authors
 
 [Willem Olding](https://github.com/willemolding)

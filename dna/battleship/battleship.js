@@ -11,6 +11,16 @@ var PIECE_SIZES = [5,4,3,3,2];
 =            public zome functions            =
 =============================================*/
 
+function registerName() {
+  // commit agent name and link to the key hash.
+  // This ensures the agents key hash is available for others to link to
+  // and also allows for retrieving the ID
+  var agentStringHash = commit("agentString", App.Agent.String);
+  commit("agentStringLink", { 
+    Links: [ { Base: me, Link: agentStringHash, Tag: "agentString" } ]
+  });
+}
+
 function newInvitation(data) {
   var board = data.board;
   var invitee = data.invitee;
@@ -30,7 +40,7 @@ function newInvitation(data) {
   // link to both players
   commit("inviteLinks", { 
     Links: [ { Base: me, Link: inviteHash, Tag: "creator" },
-             { Base: me, Link: inviteHash, Tag: "invitee" } ]
+             { Base: invitee, Link: inviteHash, Tag: "invitee" } ]
   });
 
   return inviteHash;
@@ -223,7 +233,8 @@ function receive(from, message) {
 
 
 function genesis() {
-  return true;
+  registerName();
+  return true
 }
 
 
@@ -286,13 +297,15 @@ commit = function(entryType, entryData) {
 var oldGet = get;
 get = function(hash, options) {
   result = oldGet(hash, options);
-  debug('<mermaid>' + 'DHT-->>' + agentShortname + ': '+ hash + '</mermaid>');
+  debug('<mermaid>' + 'DHT-->>' + agentShortname + ': '+ 'requested data' + '</mermaid>');
   return result;
 };
 
 var oldSend = send;
 send = function(to, message, options) {
-  debug('<mermaid>' + agentShortname + '-->>' + to + ': '+ message + '</mermaid>');
+  var toAgentName = getLinks(to, "agentString", { Load: true })[0].Entry;
+  var toAgentShortname = toAgentName.substr(0, App.Agent.String.indexOf('@'));
+  debug('<mermaid>' + agentShortname + '-->>' + toAgentShortname + ': '+ 'inform of guess' + '</mermaid>');
   return oldSend(to, message, options);
 }
 

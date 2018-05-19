@@ -1,33 +1,16 @@
 {
     "Tests": [
         {
-            "Time": 1000,
-            "Convey": "Create a new game invitation. This is actually just here to create an entry in the DHT for this node's hash",
-            "Zome": "battleship",
-            "FnName": "newInvitation",
-            "Input": {
-                "board": {
-                    "pieces": [
-                        {"x": 0, "y": 0, "orientation": "h"},
-                        {"x": 3, "y": 2, "orientation": "v"},
-                        {"x": 6, "y": 3, "orientation": "h"}
-                    ]
-                },
-                "invitee": "%playerA_key%"
-            },
-            "Output": "%h1%"
-        },
-        {
-            "Time": 1200,
+            "Time": 2000,
             "Convey": "That the send invitation is visible",
             "Zome": "battleship",
             "FnName": "getReceivedInvitations",
             "Raw": true,
             "Input": "getReceivedInvitations('%playerB_key%').length",
-            "Regexp": "^0*[1-9][0-9]*$"
+            "Output": 1
         },
         {
-            "Time": 1400,
+            "Time": 2400,
             "Convey": "That the invitation can be accepted",
             "Zome": "battleship",
             "FnName": "acceptInvitation",
@@ -44,7 +27,7 @@
             "Output": "QmT6cHPNtD8APfnEiL9ZrapthTTymwN5c3yRGKE381WVwu"
         },
         {
-            "Time": 1600,
+            "Time": 2600,
             "Convey": "Can make the first guess",
             "Zome": "battleship",
             "FnName": "makeGuess",
