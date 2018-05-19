@@ -65,16 +65,6 @@ function acceptInvitation(data) {
   return gameHash;
 }
 
-function getOtherPlayer(game) {
-  if(game.creator === me) {
-    return game.invitee;
-  } else if (game.invitee === me) {
-    return game.creator;
-  } else {
-    throw "Node is not a player in this game";
-  }
-}
-
 
 function makeGuess(data) {
   var gameHash = data.gameHash;
@@ -171,6 +161,16 @@ function getGuesses(gameHash) {
   return getLinks(gameHash, "", { Load : true });
 }
 
+function getOtherPlayer(game) {
+  if(game.creator === me) {
+    return game.invitee;
+  } else if (game.invitee === me) {
+    return game.creator;
+  } else {
+    throw "Node is not a player in this game";
+  }
+}
+
 function isPlayersTurn(gameHash, playerHash) {
   // for it to be a players turn the most recent guess must not belong to this player
   var guesses = getGuesses(gameHash);
@@ -226,6 +226,7 @@ function receive(from, message) {
 
   var board = get(boardHash, {Local: true});
 
+  // respond if the guess is a hit or miss
   return evaluateGuess(board, guess);
 }
 
