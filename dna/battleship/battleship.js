@@ -6,7 +6,6 @@ var BOARD_SIZE = 10;
 var PIECE_SIZES = [5,4,3,3,2];
 
 
-
 /*=============================================
 =            public zome functions            =
 =============================================*/
@@ -41,7 +40,6 @@ function newInvitation(payload) {
   var boardHash = commitPrivateBoard(board);
 
   // commit the game with the local hash of the board
-
   var invitation = {
     creator: me,
     creatorBoardHash: boardHash,
@@ -166,7 +164,7 @@ function commitPrivateBoard(board) {
 
 
 function hasCorrectNumberOfPieces(board) {
-  return board.pieces.len === PIECE_SIZES.len;
+  return board.pieces.length === PIECE_SIZES.length;
 }
 
 
@@ -196,7 +194,7 @@ function evaluateGuess(board, guess) {
   // return if a guess is a hit (true) or miss (false) on this board
   // 'some' returns the logical OR of the function evaluated on each array element
   return board.pieces.some(function(piece, i) {
-    
+    return false;
   });
 }
 
@@ -210,6 +208,7 @@ function getOtherPlayer(game) {
     throw "Node is not a player in this game";
   }
 }
+
 
 function isPlayersTurn(gameHash, playerHash) {
   // for it to be a players turn the most recent guess must not belong to this player
@@ -226,10 +225,12 @@ function isPlayersTurn(gameHash, playerHash) {
   return lastGuess.playerHash !== playerHash; // this prevents a node playing with themselves
 }
 
+
 function guessWithinBounds(guess) {
   return guess.x > 0 && guess.x < BOARD_SIZE
     && guess.y > 0 && guess.y < BOARD_SIZE;
 }
+
 
 function guessIsValid(guess) {
   return isPlayersTurn(guess.gameHash, guess.playerHash)
@@ -238,8 +239,6 @@ function guessIsValid(guess) {
 
 
 /*=====  End of local zome functions  ======*/
-
-
 
 /*=================================
 =            Callbacks            =

@@ -1,0 +1,41 @@
+{
+    "Tests": [
+        {
+            "Convey": "Can identify too few pieces in a board",
+            "Zome": "battleship",
+            "Raw": true,
+            "Input": "hasCorrectNumberOfPieces({pieces: [{x: 0, y: 0, orientation: 'h'},{x: 3, y: 2, orientation: 'v'},{x: 6, y: 3, orientation: 'h'}]})",
+            "Output": false
+        },
+        {
+            "Convey": "Can identify too many pieces in a board",
+            "Zome": "battleship",
+            "Raw": true,
+            "Input": "hasCorrectNumberOfPieces({pieces: [{x: 0, y: 0, orientation: 'h'},{x: 3, y: 2, orientation: 'v'},{x: 6, y: 3, orientation: 'h'},{x: 6, y: 3, orientation: 'h'},{x: 6, y: 3, orientation: 'h'},{x: 6, y: 3, orientation: 'h'}]})",
+            "Output": false
+        },
+        {
+            "Convey": "Can identify correct number of pieces",
+            "Zome": "battleship",
+            "Raw": true,
+            "Input": "hasCorrectNumberOfPieces({pieces: [{x: 0, y: 0, orientation: 'h'},{x: 3, y: 2, orientation: 'v'},{x: 6, y: 3, orientation: 'h'},{x: 6, y: 3, orientation: 'h'},{x: 6, y: 3, orientation: 'h'}]})",
+            "Output": true
+        },
+
+        {
+            "Convey": "Can identify a piece out of bounds",
+            "Zome": "battleship",
+            "Raw": true,
+            "Input": "piecesInBounds({pieces: [{x: 7, y: 7, orientation: 'h'}]})",
+            "Output": false
+        },
+        {
+            "Convey": "Can identify a piece in bounds",
+            "Zome": "battleship",
+            "Raw": true,
+            "Input": "piecesInBounds({pieces: [{x: 2, y: 2, orientation: 'h'}]})",
+            "Output": true
+        }
+
+    ]
+}
