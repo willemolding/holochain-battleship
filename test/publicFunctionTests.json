@@ -49,7 +49,7 @@
             "Convey": "Can call getCurrentGames",
             "Zome": "battleship",
             "FnName": "getCurrentGames",
-            "Input": "%key%",
+            "Input": {"playerHash": "%key%"},
             "Regexp": ".*"
         },
 
@@ -57,7 +57,7 @@
             "Convey": "Can call getSentInvitations",
             "Zome": "battleship",
             "FnName": "getSentInvitations",
-            "Input": "%key%",
+            "Input": {"playerHash": "%key%"},
             "Regexp": ".*"
         },
 
@@ -65,14 +65,14 @@
             "Convey": "Can call getReceivedInvitations",
             "Zome": "battleship",
             "FnName": "getReceivedInvitations",
-            "Input": "%key%",
+            "Input": {"playerHash": "%key%"},
             "Regexp": ".*"
         },
         {
             "Convey": "Can call getGuesses",
             "Zome": "battleship",
             "FnName": "getGuesses",
-            "Input": {"%result%":1},
+            "Input": {"gameHash": {"%result%":1}},
             "Output": [{"gameHash":"QmTwZqhg2uB3xitcRqnUvbqqfag4EzKTQgx3nLwqh6eUJX","playerHash":"QmbbsQtiSXSryq3U9dMdcsVqSny2pJUsxQRBmkava1vf45","x":0,"y":0}]
         }
     ]
