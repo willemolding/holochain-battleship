@@ -50,7 +50,7 @@
             "Zome": "battleship",
             "FnName": "getCurrentGames",
             "Input": "%key%",
-            "Output": [{"Entry":{"creator":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh","creatorBoardHash":"QmPHuXFypttx8zDUdLfYTbMWeLHJXaj2m4vtJVxiCcKx49","invitee":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh","inviteeBoardHash":"QmZbvo9EMWRkvX4qNinUFnENL2GVWDh7B7LyTFkQ9fdXNz"},"EntryType":"game","Hash":"QmeoEbaxMd6xFxFW5GoDtqzr9x7rzAdfRX5NpJbrhTkDff","Source":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh"}]
+            "Regexp": ".*"
         },
 
         {
@@ -58,7 +58,7 @@
             "Zome": "battleship",
             "FnName": "getSentInvitations",
             "Input": "%key%",
-            "Output": [{"Entry":{"creator":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh","creatorBoardHash":"QmPHuXFypttx8zDUdLfYTbMWeLHJXaj2m4vtJVxiCcKx49","invitee":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh"},"EntryType":"invitation","Hash":"QmeBDbjZZi2YBNfebXUeGUGXN4WYBm9q3HHHunXe4GZNwt","Source":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh"}]
+            "Regexp": ".*"
         },
 
         {
@@ -66,21 +66,14 @@
             "Zome": "battleship",
             "FnName": "getReceivedInvitations",
             "Input": "%key%",
-            "Output": [{"Entry":{"creator":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh","creatorBoardHash":"QmPHuXFypttx8zDUdLfYTbMWeLHJXaj2m4vtJVxiCcKx49","invitee":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh"},"EntryType":"invitation","Hash":"QmeBDbjZZi2YBNfebXUeGUGXN4WYBm9q3HHHunXe4GZNwt","Source":"QmVjxtfi81pV4Ya63FUMZXY8aHbA5RBDMA5zxnXJhhvCxh"}]
-        },
-        {
-            "Convey": "Can call getGuesses",
-            "Raw": true,
-            "Zome": "battleship",
-            "Input": "getGuesses('QmeoEbaxMd6xFxFW5GoDtqzr9x7rzAdfRX5NpJbrhTkDff')",
             "Regexp": ".*"
         },
         {
-            "Convey": "Can call isPlayersTurn",
-            "Raw": true,
+            "Convey": "Can call getGuesses",
             "Zome": "battleship",
-            "Input": "isPlayersTurn('QmeoEbaxMd6xFxFW5GoDtqzr9x7rzAdfRX5NpJbrhTkDff', '%key%')",
-            "Output": false
+            "FnName": "getGuesses",
+            "Input": {"%result%":1},
+            "Output": [{"gameHash":"QmTwZqhg2uB3xitcRqnUvbqqfag4EzKTQgx3nLwqh6eUJX","playerHash":"QmbbsQtiSXSryq3U9dMdcsVqSny2pJUsxQRBmkava1vf45","x":0,"y":0}]
         }
     ]
 }

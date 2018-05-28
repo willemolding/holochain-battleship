@@ -89,16 +89,29 @@ function makeGuess(data) {
 }
 
 function getSentInvitations(playerHash) {
-  return getLinks(playerHash, "creator", { Load: true });
+  return getLinks(playerHash, "creator", { Load: true }).map(function(elem) {
+    return elem.Entry;
+  });
 }
 
 function getReceivedInvitations(playerHash) {
-  return getLinks(playerHash, "invitee", { Load: true });
+  return getLinks(playerHash, "invitee", { Load: true }).map(function(elem) {
+    return elem.Entry;
+  });
 }
 
 function getCurrentGames(playerHash) {
-  return getLinks(playerHash, "game", { Load: true });
+  return getLinks(playerHash, "game", { Load: true }).map(function(elem) {
+    return elem.Entry;
+  });
 }
+
+function getGuesses(gameHash) {
+  return getLinks(gameHash, "", { Load : true }).map(function(elem) {
+    return elem.Entry;
+  });
+}
+
 
 
 /*=====  End of public zome functions  ======*/
@@ -157,9 +170,6 @@ function evaluateGuess(board, guess) {
   });
 }
 
-function getGuesses(gameHash) {
-  return getLinks(gameHash, "", { Load : true });
-}
 
 function getOtherPlayer(game) {
   if(game.creator === me) {
