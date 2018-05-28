@@ -35,7 +35,21 @@
             "Raw": true,
             "Input": "piecesInBounds({pieces: [{x: 2, y: 2, orientation: 'h'}]})",
             "Output": true
-        }
+        },
 
+        {
+            "Convey": "Can identify overlapping pieces",
+            "Zome": "battleship",
+            "Raw": true,
+            "Input": "noPiecesOverlapping({pieces: [{x: 5, y: 0, orientation: 'v'},{x: 2, y: 2, orientation: 'h'}]})",
+            "Output": false
+        },  
+        {
+            "Convey": "Can identify that no pieces overlap",
+            "Zome": "battleship",
+            "Raw": true,
+            "Input": "noPiecesOverlapping({pieces: [{x: 5, y: 0, orientation: 'v'},{x: 4, y: 0, orientation: 'v'}]})",
+            "Output": true
+        }   
     ]
 }

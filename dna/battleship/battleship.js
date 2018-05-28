@@ -30,7 +30,7 @@ function registerName(payload) {
  * @param      {Object} payload
  * @param      {Object} payload.board - Board object for the game
  * @param      {string} payload.invitee - Hash of agent to invite
- * @returns    {string} inviteHash - The hash of this invitation entry if successful
+ * @return     {string} inviteHash - The hash of this invitation entry if successful
  */
 function newInvitation(payload) {
   debug(payload);
@@ -63,7 +63,7 @@ function newInvitation(payload) {
  *
  * @param      {Object}    payload
  * @param      {Object} payload.board - Board object
- * @returns     {string}  { description_of_the_return_value }
+ * @return     {string}  { description_of_the_return_value }
  */
 function acceptInvitation(payload) {
   debug(payload);
@@ -116,26 +116,54 @@ function makeGuess(payload) {
 
 }
 
-function getSentInvitations(playerHash) {
-  return getLinks(playerHash, "creator", { Load: true }).map(function(elem) {
+/**
+ * Get the invitations that have been sent by a player
+ *
+ * @param     {Object}  payload
+ * @param     {string}  payload.playerHash
+ * @return    {Array} Array of invitation objects
+ */
+function getSentInvitations(payload) {
+  return getLinks(payload.playerHash, "creator", { Load: true }).map(function(elem) {
     return elem.Entry;
   });
 }
 
-function getReceivedInvitations(playerHash) {
-  return getLinks(playerHash, "invitee", { Load: true }).map(function(elem) {
+/**
+ * Get the invitations received by a player
+ *
+ * @param      {Object}  payload
+ * @param      {string} payload.playerHash
+ * @return     {Array}  Array of received invitations
+ */
+function getReceivedInvitations(payload) {
+  return getLinks(payload.playerHash, "invitee", { Load: true }).map(function(elem) {
     return elem.Entry;
   });
 }
 
-function getCurrentGames(playerHash) {
-  return getLinks(playerHash, "game", { Load: true }).map(function(elem) {
+/**
+ * Get the games a player has been involved in
+ *
+ * @param      {Object}  payload
+ * @param      {string} payload.playerHash
+ * @return     {Array}  Array of games
+ */
+function getCurrentGames(payload) {
+  return getLinks(payload.playerHash, "game", { Load: true }).map(function(elem) {
     return elem.Entry;
   });
 }
 
-function getGuesses(gameHash) {
-  return getLinks(gameHash, "", { Load : true }).map(function(elem) {
+/**
+ * Gets the guesses.
+ *
+ * @param      {Object}  payload
+ * @param      {string} payload.gameHash
+ * @return     {Array}  The guesses
+ */
+function getGuesses(payload) {
+  return getLinks(payload.gameHash, "", { Load : true }).map(function(elem) {
     return elem.Entry;
   });
 }
@@ -179,9 +207,15 @@ function piecesInBounds(board) {
   });
 }
 
-
 function noPiecesOverlapping(board) {
-  return true;
+  // compare every piece
+  return board.pieces.every(function(basePiece, i) {
+          // with every other piece
+          board.pieces.slice(i+1).every(function(candidatePiece) {
+            // return true if no overlap
+            return true;
+          });
+        });
 }
 
 function boardIsValid(board) {
