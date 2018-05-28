@@ -141,11 +141,6 @@
                     "Name": "getGuesses",
                     "CallingType": "json",
                     "Exposure": "public"
-                },
-                {
-                    "Name": "isPlayersTurn",
-                    "CallingType": "json",
-                    "Exposure": "public"
                 }
             ]
         }

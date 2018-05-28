@@ -5,9 +5,8 @@
             "Convey": "That the send invitation is visible",
             "Zome": "battleship",
             "FnName": "getReceivedInvitations",
-            "Raw": true,
-            "Input": "getReceivedInvitations('%playerB_key%').length",
-            "Output": 1
+            "Input": "%playerB_key%",
+            "Regexp": ".*"
         },
         {
             "Time": 2400,
@@ -22,7 +21,7 @@
                         {"x": 6, "y": 3, "orientation": "h"}
                     ]
                 },
-                "inviteHash": "QmecCY554xYn3VRhwEAKGMGQHiBQBkoAz8sWdkFsBqypxJ"
+                "inviteHash": "%result0%"
             },
             "Output": "QmT6cHPNtD8APfnEiL9ZrapthTTymwN5c3yRGKE381WVwu"
         },

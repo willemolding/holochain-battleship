@@ -41,7 +41,7 @@
             "Zome": "battleship",
             "FnName": "makeGuess",
             "Input": {
-                "gameHash": "QmT6cHPNtD8APfnEiL9ZrapthTTymwN5c3yRGKE381WVwu",
+                "gameHash": "%result1%",
                 "guess": {"x": 1, "y": 1}
             },
             "Regexp": ".*"

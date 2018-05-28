@@ -1,4 +1,32 @@
-'use strict';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: battleship.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: battleship.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>'use strict';
 
 var me = App.Key.Hash;
 
@@ -14,12 +42,11 @@ var PIECE_SIZES = [5,4,3,3,2];
 /**
  * Registers an agents name by linking an entry to their base hash
  *
- * @param      {Object}  payload
- * @param      {string} payload.agentName - The name to register for this agent
+ * @param      {string}  name
  */
-function registerName(payload) {
+function registerName(name) {
   // commit agent name and link to the key hash.
-  var agentStringHash = commit("agentString", payload.agentName);
+  var agentStringHash = commit("agentString", name);
   commit("agentStringLink", { 
     Links: [ { Base: me, Link: agentStringHash, Tag: "agentString" } ]
   });
@@ -28,15 +55,15 @@ function registerName(payload) {
 /**
  * Create a new game invitation
  *
- * @param      {Object} payload
- * @param      {Object} payload.board - Board object for the game
- * @param      {string} payload.invitee - Hash of agent to invite
+ * @param      {Object} data
+ * @param      {Object} data.board - Board object for the game
+ * @param      {string} data.invitee - Hash of agent to invite
  * @returns    {string} inviteHash - The hash of this invitation entry if successful
  */
-function newInvitation(payload) {
-  debug(payload);
-  var board = payload.board;
-  var invitee = payload.invitee;
+function newInvitation(data) {
+  debug(data);
+  var board = data.board;
+  var invitee = data.invitee;
 
   var boardHash = commitPrivateBoard(board);
 
@@ -63,14 +90,14 @@ function newInvitation(payload) {
 /**
  * Accepts an invitation and posts a game entry
  *
- * @param      {Object}    payload
- * @param      {Object} payload.board - Board object
+ * @param      {Object}    data
+ * @param      {Object} data.board - Board object
  * @returns     {string}  { description_of_the_return_value }
  */
-function acceptInvitation(payload) {
-  debug(payload);
-  var inviteHash = payload.inviteHash;
-  var board = payload.board;
+function acceptInvitation(data) {
+  debug(data);
+  var inviteHash = data.inviteHash;
+  var board = data.board;
 
   var game = get(inviteHash);
 
@@ -89,16 +116,16 @@ function acceptInvitation(payload) {
 }
 
 /**
- * Makes a guess
+ * Makes a guess.
  *
- * @param      {Object}    payload
- * @param      {string} payload.gameHash - Hash of the game to make a guess
- * @param      {Object} payload.guess - The guess to make
- * @return     {string} guessHash - The hash of the created guess if successful
+ * @param      {Object}    data
+ * @param      {string} data.gameHash - Hash of the game to make a guess
+ * @param      {Object} data.guess - The guess to make
+ * @return     {Function}  { description_of_the_return_value }
  */
-function makeGuess(payload) {
-  var gameHash = payload.gameHash;
-  var guess = payload.guess;
+function makeGuess(data) {
+  var gameHash = data.gameHash;
+  var guess = data.guess;
   guess.playerHash = me;
   guess.gameHash = gameHash;
 
@@ -174,9 +201,9 @@ function piecesInBounds(board) {
   // 'every' returns the logical AND of the function evaluated on each array element
   return board.pieces.every(function(piece, i) {
     if (piece.orientation === "h") {
-      return piece.x >= 0 && piece.x + PIECE_SIZES[i] - 1 < BOARD_SIZE && piece.y >= 0 && piece.y < BOARD_SIZE
+      return piece.x >= 0 &amp;&amp; piece.x + PIECE_SIZES[i] - 1 &lt; BOARD_SIZE &amp;&amp; piece.y >= 0 &amp;&amp; piece.y &lt; BOARD_SIZE
     } else {
-      return piece.x >= 0 && piece.x < BOARD_SIZE && piece.y >= 0 && piece.y + PIECE_SIZES[i] - 1 < BOARD_SIZE
+      return piece.x >= 0 &amp;&amp; piece.x &lt; BOARD_SIZE &amp;&amp; piece.y >= 0 &amp;&amp; piece.y + PIECE_SIZES[i] - 1 &lt; BOARD_SIZE
     }
   });
 }
@@ -188,8 +215,8 @@ function noPiecesOverlapping(board) {
 
 function boardIsValid(board) {
   return hasCorrectNumberOfPieces(board) 
-    && piecesInBounds(board) 
-    && noPiecesOverlapping(board);
+    &amp;&amp; piecesInBounds(board) 
+    &amp;&amp; noPiecesOverlapping(board);
 }
 
 function evaluateGuess(board, guess) {
@@ -227,13 +254,13 @@ function isPlayersTurn(gameHash, playerHash) {
 }
 
 function guessWithinBounds(guess) {
-  return guess.x > 0 && guess.x < BOARD_SIZE
-    && guess.y > 0 && guess.y < BOARD_SIZE;
+  return guess.x > 0 &amp;&amp; guess.x &lt; BOARD_SIZE
+    &amp;&amp; guess.y > 0 &amp;&amp; guess.y &lt; BOARD_SIZE;
 }
 
 function guessIsValid(guess) {
   return isPlayersTurn(guess.gameHash, guess.playerHash)
-    && guessWithinBounds(guess);
+    &amp;&amp; guessWithinBounds(guess);
 }
 
 
@@ -272,7 +299,7 @@ function receive(from, message) {
 
 
 function genesis() {
-  registerName({agentName: App.Agent.String});
+  registerName(App.Agent.String);
   return true
 }
 
@@ -326,9 +353,9 @@ agentShortname = App.Agent.String.substr(0, App.Agent.String.indexOf('@'));
 var oldCommit = commit;
 commit = function(entryType, entryData) {
   if(entryType.indexOf("private") !== -1) {
-    debug('<mermaid>' + agentShortname + '-->>' + agentShortname +': '+ entryType + '</mermaid>');
+    debug('&lt;mermaid>' + agentShortname + '-->>' + agentShortname +': '+ entryType + '&lt;/mermaid>');
   } else {
-    debug('<mermaid>' + agentShortname + '-->>DHT: '+ entryType + '</mermaid>');
+    debug('&lt;mermaid>' + agentShortname + '-->>DHT: '+ entryType + '&lt;/mermaid>');
   }
   return oldCommit(entryType, entryData);
 };
@@ -337,7 +364,7 @@ commit = function(entryType, entryData) {
 // var oldGet = get;
 // get = function(hash, options) {
 //   result = oldGet(hash, options);
-//   debug('<mermaid>' + 'DHT-->>' + agentShortname + ': '+ 'requested data' + '</mermaid>');
+//   debug('&lt;mermaid>' + 'DHT-->>' + agentShortname + ': '+ 'requested data' + '&lt;/mermaid>');
 //   return result;
 // };
 
@@ -345,8 +372,31 @@ var oldSend = send;
 send = function(to, message, options) {
   var toAgentName = getLinks(to, "agentString", { Load: true })[0].Entry;
   var toAgentShortname = toAgentName.substr(0, App.Agent.String.indexOf('@'));
-  debug('<mermaid>' + agentShortname + '-->>' + toAgentShortname + ': '+ 'inform of guess' + '</mermaid>');
+  debug('&lt;mermaid>' + agentShortname + '-->>' + toAgentShortname + ': '+ 'inform of guess' + '&lt;/mermaid>');
   return oldSend(to, message, options);
 }
 
 /*=====  End of function overrides  ======*/
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Global</h3><ul><li><a href="global.html#acceptInvitation">acceptInvitation</a></li><li><a href="global.html#makeGuess">makeGuess</a></li><li><a href="global.html#newInvitation">newInvitation</a></li><li><a href="global.html#registerName">registerName</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Mon May 28 2018 20:14:03 GMT+1000 (AEST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
