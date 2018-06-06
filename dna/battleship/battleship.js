@@ -63,7 +63,8 @@ function newInvitation(payload) {
  *
  * @param      {Object}    payload
  * @param      {Object} payload.board - Board object
- * @return     {string}  { description_of_the_return_value }
+ * @param      {string} payload.inviteHash - Hash of an invite this is responding to
+ * @return     {string}  Hash of the newly created game entry
  */
 function acceptInvitation(payload) {
   debug(payload);
@@ -95,6 +96,7 @@ function acceptInvitation(payload) {
  * @return     {string} guessHash - The hash of the created guess if successful
  */
 function makeGuess(payload) {
+  debug(payload);
   var gameHash = payload.gameHash;
   var guess = payload.guess;
   guess.playerHash = me;
@@ -125,7 +127,7 @@ function makeGuess(payload) {
  */
 function getSentInvitations(payload) {
   return getLinks(payload.playerHash, "creator", { Load: true }).map(function(elem) {
-    return elem.Entry;
+    return {Entry: elem.Entry, Hash: elem.Hash};
   });
 }
 
@@ -138,7 +140,7 @@ function getSentInvitations(payload) {
  */
 function getReceivedInvitations(payload) {
   return getLinks(payload.playerHash, "invitee", { Load: true }).map(function(elem) {
-    return elem.Entry;
+    return {Entry: elem.Entry, Hash: elem.Hash};
   });
 }
 
@@ -151,7 +153,7 @@ function getReceivedInvitations(payload) {
  */
 function getCurrentGames(payload) {
   return getLinks(payload.playerHash, "game", { Load: true }).map(function(elem) {
-    return elem.Entry;
+    return {Entry: elem.Entry, Hash: elem.Hash};
   });
 }
 

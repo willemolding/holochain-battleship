@@ -9,8 +9,10 @@
                 "board": {
                     "pieces": [
                         {"x": 0, "y": 0, "orientation": "h"},
-                        {"x": 3, "y": 2, "orientation": "v"},
-                        {"x": 6, "y": 3, "orientation": "h"}
+                        {"x": 2, "y": 6, "orientation": "h"},
+                        {"x": 7, "y": 6, "orientation": "v"},
+                        {"x": 9, "y": 2, "orientation": "v"},
+                        {"x": 4, "y": 3, "orientation": "h"}
                     ]
                 },
                 "invitee": "%playerB_key%"
@@ -23,7 +25,7 @@
             "Zome": "battleship",
             "FnName": "getSentInvitations",
             "Raw": true,
-            "Input": "getSentInvitations('%playerA_key%').length",
+            "Input": "getSentInvitations({playerHash: '%playerA_key%'}).length",
             "Output": 1
         },
         {
@@ -32,8 +34,17 @@
             "Zome": "battleship",
             "FnName": "getReceivedInvitations",
             "Raw": true,
-            "Input": "getReceivedInvitations('%playerB_key%').length",
+            "Input": "getReceivedInvitations({playerHash: '%playerB_key%'}).length",
             "Output": 1
+        },
+        {
+            "Time": 2600,
+            "Convey": "The other player accepted the invitation and created a game which is visible",
+            "Zome": "battleship",
+            "FnName": "getCurrentGames",
+            "Raw": true,
+            "Input": "getCurrentGames({playerHash: '%playerA_key%'})[0].Hash",
+            "Regexp": ".*"
         },
         {
             "Time": 2800,
@@ -41,7 +52,7 @@
             "Zome": "battleship",
             "FnName": "makeGuess",
             "Input": {
-                "gameHash": "%result1%",
+                "gameHash": "%result3%",
                 "guess": {"x": 1, "y": 1}
             },
             "Regexp": ".*"
