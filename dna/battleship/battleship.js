@@ -112,10 +112,7 @@ function makeGuess(payload) {
   // message the guess hash to the other player
   // they will post a response if it is valid
   var game = get(gameHash);
-  send(getOtherPlayer(game), {guessHash: guessHash});
-
-  return guessHash;
-
+  return send(getOtherPlayer(game), {guessHash: guessHash});
 }
 
 /**
