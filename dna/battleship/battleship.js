@@ -210,12 +210,12 @@ function piecesInBounds(board) {
 function noPiecesOverlapping(board) {
   // compare every piece
   return board.pieces.every(function(basePiece, i) {
-          // with every other piece
-          board.pieces.slice(i+1).every(function(candidatePiece) {
-            // return true if no overlap
-            return true;
-          });
-        });
+    // with every other piece
+    board.pieces.slice(i+1).every(function(candidatePiece) {
+      // return true if no overlap
+      return true;
+    });
+  });
 }
 
 function boardIsValid(board) {
@@ -228,7 +228,12 @@ function evaluateGuess(board, guess) {
   // return if a guess is a hit (true) or miss (false) on this board
   // 'some' returns the logical OR of the function evaluated on each array element
   return board.pieces.some(function(piece, i) {
-    return false;
+    var xmin = piece.x;
+    var xmax = piece.orientation == "h" ? xmin+PIECE_SIZES[i]-1 : xmin;
+    var ymin = piece.y;
+    var ymax = piece.orientation == "v" ? ymin+PIECE_SIZES[i]-1 : ymin;
+
+    return ( guess.x >= xmin && guess.x <= xmax && guess.y >= ymin && guess.y <= ymax);
   });
 }
 
