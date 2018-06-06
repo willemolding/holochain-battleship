@@ -38,6 +38,21 @@
         },
 
         {
+            "Convey": "Can evaulate a missing guess",
+            "Zome": "battleship",
+            "Raw": true,
+            "Input": "evaluateGuess({pieces: [{x: 5, y: 0, orientation: 'v'}]}, {x: 0, y: 0})",
+            "Output": false
+        },  
+        {
+            "Convey": "Can evaulate a hitting guess",
+            "Zome": "battleship",
+            "Raw": true,
+            "Input": "evaluateGuess({pieces: [{x: 5, y: 0, orientation: 'v'}]}, {x: 5, y: 2})",
+            "Output": true
+        },  
+
+        {
             "Convey": "Can identify overlapping pieces",
             "Zome": "battleship",
             "Raw": true,

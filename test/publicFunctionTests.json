@@ -73,7 +73,7 @@
             "Zome": "battleship",
             "FnName": "getGuesses",
             "Input": {"gameHash": {"%result%":1}},
-            "Output": [{"gameHash":"QmTwZqhg2uB3xitcRqnUvbqqfag4EzKTQgx3nLwqh6eUJX","playerHash":"QmbbsQtiSXSryq3U9dMdcsVqSny2pJUsxQRBmkava1vf45","x":0,"y":0}]
+            "Output": [{"gameHash":"%h3%","playerHash":"%key%","x":0,"y":0}]
         }
     ]
 }

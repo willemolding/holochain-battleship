@@ -209,12 +209,24 @@ function piecesInBounds(board) {
 
 function noPiecesOverlapping(board) {
   // compare every piece
-  return board.pieces.every(function(basePiece, i) {
-    // with every other piece
-    board.pieces.slice(i+1).every(function(candidatePiece) {
-      // return true if no overlap
-      return true;
-    });
+  return board.pieces.every(function(piece, pieceIndex) {
+    var noCollisions = true;
+    for(var i = 0; i < PIECE_SIZES[i]; i++) {
+      var guess;
+      if(piece.orientation === 'h') {
+        guess = {
+          x: piece.x + i,
+          y: piece.y
+        };
+      } else {
+        guess = {
+          x: piece.x,
+          y: piece.y + i
+        };
+      }
+        noCollisions = noCollisions && !evaluateGuess(board, guess, pieceIndex);
+    }
+    return noCollisions;
   });
 }
 
@@ -224,14 +236,17 @@ function boardIsValid(board) {
     && noPiecesOverlapping(board);
 }
 
-function evaluateGuess(board, guess) {
+function evaluateGuess(board, guess, indexToIgnore) {
   // return if a guess is a hit (true) or miss (false) on this board
+  // indexToIgnore (optional) - dont inlude this piece in the evaluation
   // 'some' returns the logical OR of the function evaluated on each array element
   return board.pieces.some(function(piece, i) {
+    if(i === indexToIgnore) return false;
+
     var xmin = piece.x;
-    var xmax = piece.orientation == "h" ? xmin+PIECE_SIZES[i]-1 : xmin;
+    var xmax = piece.orientation === "h" ? xmin+PIECE_SIZES[i]-1 : xmin;
     var ymin = piece.y;
-    var ymax = piece.orientation == "v" ? ymin+PIECE_SIZES[i]-1 : ymin;
+    var ymax = piece.orientation === "v" ? ymin+PIECE_SIZES[i]-1 : ymin;
 
     return ( guess.x >= xmin && guess.x <= xmax && guess.y >= ymin && guess.y <= ymax);
   });
