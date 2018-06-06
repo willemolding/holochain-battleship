@@ -331,11 +331,36 @@ function genesis() {
 
 
 function validateCommit (entryName, entry, header, pkg, sources) {
-  return true;
+  switch(entryName) {
+    case "game":
+      // can only add a game when responding to an invitation 
+      return true;
+    case "guess":
+      // can only guess if it is your turn and you are playing the game
+      return true;//guessIsValid(entry);
+    case "result":
+      // can only produce a result under strict winning conditions
+      return true;
+    case "privateBoard":
+    case "publicBoard":
+      return boardIsValid(entry);
+    
+    // all of these entries have no restrictions (links are validated seperatly)
+    case "agentString":
+    case "invitation":
+    case "agentStringLink":
+    case "inviteLinks":
+    case "resultLinks":
+    case "gameLinks":
+    case "guessLinks":
+      return true;
+    default:
+      return false;
+  }
 }
 
 function validatePut (entryName, entry, header, pkg, sources) {
-  return true;
+  return validateCommit(entryName, entry, header, pkg, sources);
 }
 
 function validateMod (entryName, entry, header, replaces, pkg, sources) {

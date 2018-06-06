@@ -65,6 +65,14 @@
             "Raw": true,
             "Input": "noPiecesOverlapping({pieces: [{x: 5, y: 0, orientation: 'v'},{x: 4, y: 0, orientation: 'v'}]})",
             "Output": true
-        }   
+        },
+        {
+            "Convey": "Can validate a board",
+            "Zome": "battleship",
+            "Raw": true,
+            "Input": "boardIsValid({pieces: [{x: 0, y: 0, orientation: 'h'},{x: 2, y: 6, orientation: 'h'},{x: 7, y: 6, orientation: 'v'},{x: 9, y: 2, orientation: 'v'},{x: 4, y: 3, orientation: 'h'}]})",
+            "Output": true
+        }
+
     ]
 }
