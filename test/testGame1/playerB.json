@@ -1,7 +1,7 @@
 {
     "Tests": [
         {
-            "Time": 2000,
+            "Time": 5500,
             "Convey": "That the send invitation is visible",
             "Zome": "battleship",
             "FnName": "getReceivedInvitations",
@@ -10,7 +10,7 @@
             "Regexp": ".*"
         },
         {
-            "Time": 2400,
+            "Time": 6000,
             "Convey": "That the invitation can be accepted",
             "Zome": "battleship",
             "FnName": "acceptInvitation",
@@ -29,7 +29,7 @@
             "Regexp": ".*"
         },
         {
-            "Time": 2600,
+            "Time": 6500,
             "Convey": "Can make the first guess",
             "Zome": "battleship",
             "FnName": "makeGuess",
@@ -37,7 +37,7 @@
                 "gameHash": {"%result%": 1},
                 "guess": {"x": 0, "y": 0}
             },
-            "Output": "true"
+            "Output": "matrue"
         }
     ]
 }

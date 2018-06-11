@@ -1,7 +1,7 @@
 {
     "Tests": [
         {
-            "Time": 1000,
+            "Time": 5000,
             "Convey": "Create a new game invitation",
             "Zome": "battleship",
             "FnName": "newInvitation",
@@ -20,7 +20,7 @@
             "Output": "%h1%"
         },
         {
-            "Time": 2200,
+            "Time": 5500,
             "Convey": "The invitation was linked to this nodes hash",
             "Zome": "battleship",
             "FnName": "getSentInvitations",
@@ -29,7 +29,7 @@
             "Output": 1
         },
         {
-            "Time": 2400,
+            "Time": 6000,
             "Convey": "The invitation was linked to other player",
             "Zome": "battleship",
             "FnName": "getReceivedInvitations",
@@ -38,7 +38,7 @@
             "Output": 1
         },
         {
-            "Time": 2600,
+            "Time": 6500,
             "Convey": "The other player accepted the invitation and created a game which is visible",
             "Zome": "battleship",
             "FnName": "getCurrentGames",
@@ -47,7 +47,7 @@
             "Regexp": ".*"
         },
         {
-            "Time": 2800,
+            "Time": 7000,
             "Convey": "Can make the second guess",
             "Zome": "battleship",
             "FnName": "makeGuess",

@@ -1,0 +1,19 @@
+{
+  "name": "ui-src",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "hc-redux-middleware": "^1.0.3",
+    "react": "^16.4.0",
+    "react-dom": "^16.4.0",
+    "react-redux": "^5.0.7",
+    "react-scripts": "1.1.4",
+    "redux": "^4.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build && node copy-to-ui.js",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
